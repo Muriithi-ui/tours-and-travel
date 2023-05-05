@@ -2,6 +2,7 @@ const express = require("express");
 const connectDB = require("./config/db")
 const dotenv = require("dotenv");
 const userRoutes = require("./routes/userRoutes")
+const tourRoutes = require("./routes/tourRoutes")
 
 dotenv.config();
 connectDB();
@@ -14,6 +15,8 @@ app.get("/", (req,res) => {
 });
 
 app.use("/api/user", userRoutes);
+app.use("/api/tour", tourRoutes);
+
 
 const PORT = process.env.PORT;
 
