@@ -25,8 +25,8 @@ const createTour = asyncHandler(async (req, res) => {
     name: name,
     description: description,
     location: location,
-    startDate,
-    endDate,
+    startDate: startDate,
+    endDate: startDate,
     price: price,
     image: image,
     availableSeats: availableSeats,
@@ -38,7 +38,7 @@ const createTour = asyncHandler(async (req, res) => {
 });
 
 // @desc    Get a tour by ID
-// @route   GET /api/tours/:id
+// @route   GET /api/tour/:id
 // @access  Public
 const getTourById = asyncHandler(async (req, res) => {
   const tour = await Tour.findById(req.params.id);
@@ -52,7 +52,7 @@ const getTourById = asyncHandler(async (req, res) => {
 });
 
 // @desc    Update a tour
-// @route   PUT /api/tours/:id
+// @route   PUT /api/tour/:id
 // @access  Private/Admin
 const updateTour = asyncHandler(async (req, res) => {
   const tour = await Tour.findById(req.params.id);
@@ -61,7 +61,8 @@ const updateTour = asyncHandler(async (req, res) => {
     tour.name = req.body.name || tour.name;
     tour.description = req.body.description || tour.description;
     tour.location = req.body.location || tour.location;
-    tour.date = req.body.date || tour.date;
+    tour.startDate= req.body.startDate || tour.startDate;
+    tour.endDate= req.body.endDate || tour.endDate;
     tour.price = req.body.price || tour.price;
     tour.image = req.body.image || tour.image;
     tour.availableSeats = req.body.availableSeats || tour.availableSeats;
@@ -75,14 +76,13 @@ const updateTour = asyncHandler(async (req, res) => {
 });
 
 // @desc    Delete a tour
-// @route   DELETE /api/tours/:id
+// @route   DELETE /api/tour/:id
 // @access  Private/Admin
 const deleteTour = asyncHandler(async (req, res) => {
-  const tour = await Tour.findById(req.params.id);
+  const deletedTour = await Tour.findByIdAndRemove(req.params.id);
 
-  if (tour) {
-    await tour.remove();
-    res.json({ message: "Tour deleted successfully" });
+  if (deletedTour) {
+    res.status(200).json({ message: "Tour deleted successfully" });
   } else {
     res.status(404);
     throw new Error("Tour not found");
@@ -90,7 +90,7 @@ const deleteTour = asyncHandler(async (req, res) => {
 });
 
 // @desc    Get tours by location
-// @route   GET /api/tours/location/:location
+// @route   GET /api/tour/location/:location
 // @access  Public
 const getToursByLocation = asyncHandler(async (req, res) => {
   const tours = await Tour.find({ location: req.params.location });
@@ -98,7 +98,7 @@ const getToursByLocation = asyncHandler(async (req, res) => {
 });
 
 // @desc    Get tours by date
-// @route   GET /api/tours/date/:date
+// @route   GET /api/tour/date/:date
 // @access  Public
 const getToursByDate = asyncHandler(async (req, res) => {
   const tours = await Tour.find({ date: req.params.date });
@@ -106,7 +106,7 @@ const getToursByDate = asyncHandler(async (req, res) => {
 });
 
 // @desc     Add a review for a tour
-// @route    POST /api/tour/:id/reviews
+// @route    POST /api/tou/:id/reviews
 // @access   Private
 const addReview = asyncHandler(async (req, res) => {
     const tour = await Tour.findById(req.params.id);
