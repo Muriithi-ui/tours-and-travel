@@ -30,6 +30,11 @@ const userSchema = mongoose.Schema({
         default: 'user',
         required: true
       },
+    flag: {
+        type: String,
+        enum: ['verified', 'not_verified'],
+        default: 'not_verified'
+    },
     isActive: {
         type: Boolean,
         default: true

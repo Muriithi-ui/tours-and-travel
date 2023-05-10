@@ -13,29 +13,34 @@ const allTours = asyncHandler(async (req, res) => {
 // @route   POST /api/tours
 // @access  Private/Admin
 const createTour = asyncHandler(async (req, res) => {
-  const {name, description, location, startDate, endDate, price, image, availableSeats, reviews} = req.body;
-  
-  const tourExists = await Tour.findOne({ name })
+  const { name, description, imageCover, images, maxGroupSize, price, location, startDate, endDate } = req.body;
 
-  if (tourExists) {
-    res.status(200).json({ message: "Tour with same name already exists" });
-  } 
+  // Validate the input data
+  if (!name || !description || !imageCover || !images || !maxGroupSize || !price || !location || !startDate || !endDate) {
+    res.status(400);
+    throw new Error('Please provide all required fields');
+  }
 
+  // Create the new tour
   const tour = new Tour({
-    name: name,
-    description: description,
-    location: location,
-    startDate: startDate,
-    endDate: startDate,
-    price: price,
-    image: image,
-    availableSeats: availableSeats,
-    reviews: [],
+    name,
+    description,
+    imageCover,
+    images,
+    maxGroupSize,
+    price,
+    location,
+    startDate,
+    endDate
   });
 
-  const createdTour = await tour.save();
-  res.status(201).json(createdTour);
+  // Save the tour to the database
+  await tour.save();
+
+  // Return the new tour as a response
+  res.status(201).json(tour);
 });
+
 
 // @desc    Get a tour by ID
 // @route   GET /api/tour/:id

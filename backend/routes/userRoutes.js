@@ -1,6 +1,7 @@
 const express = require("express");
 const { 
     createUser, 
+    verifyAccount,
     authUser,
     getUser, 
     updateUser, 
@@ -18,6 +19,9 @@ const router = express.Router();
 
 // Create a user
 router.route("/").post(createUser);
+
+// Create a user
+router.route("/verify").put(verifyAccount);
 
 // Get all users
 router.route("/").get(protect, getAllUsers);
