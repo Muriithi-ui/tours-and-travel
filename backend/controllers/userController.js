@@ -1,6 +1,8 @@
 const User = require("../models/userModel");
 const asyncHandler = require("express-async-handler");
-const generateToken = require("../config/generateToken")
+const {generateToken, generateVerificationToken} = require("../config/generateToken");
+const nodemailer = require("nodemailer");
+
 
 //@description     Register new user
 //@route           POST /api/user/
@@ -30,7 +32,6 @@ const createUser = asyncHandler(async (req, res) => {
       isActive,
   });
   if (user) {
-    const token = generateToken(user._id);
     res.status(200).json({
       _id: user._id,
       name: user.name,
@@ -39,7 +40,6 @@ const createUser = asyncHandler(async (req, res) => {
       bio: user.bio,
       role: user.role,
       isActive: user.isActive,
-      token: token,
     });
   } else {
     res.status(400);
@@ -47,10 +47,57 @@ const createUser = asyncHandler(async (req, res) => {
   }
 }); 
 
+//@description     verify a user
+//@route           PUT /api/user/verify
+//@access          Private
+const verifyAccount = asyncHandler(async (req, res) => {
+  try {
+    const { token } = req.params;
+
+    // Verify the token
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const userId = decoded.id;
+
+    // Generate verification token
+    const verificationToken = generateVerificationToken();
+
+    // Send verification email
+    const user = await User.findById(userId);
+    const transporter = nodemailer.createTransport({
+      // Configure your email provider settings here
+    });
+
+    const mailOptions = {
+      from: "toursntravel@gmail.com",
+      to: user.email,
+      subject: "Account Verification",
+      text: `Hello ${user.name},\n\nPlease click on the following link to verify your account:\n\n${verificationToken}`,
+    };
+
+    await transporter.sendMail(mailOptions);
+
+    // Update the user's verification status
+    user.isVerified = true;
+    await user.save();
+
+    res.status(200).json({
+      message: "Account verified successfully",
+      user: {
+        _id: user._id,
+        name: user.name,
+        email: user.email,
+        isVerified: user.isVerified,
+      },
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+});
+
 //@description     Authenticate a Users 
 //@route           GET /api/user/
 //@access          Public
-
 const authUser = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
 
@@ -58,13 +105,15 @@ const authUser = asyncHandler(async (req, res) => {
 
   if (user && (await user.matchPassword(password))) {
     const token = generateToken(user._id);
-    res.json({ token });
+    res.status(200).json({
+      _id: user._id,
+      token: token,
+    });
   } else {
     res.status(401);
     throw new Error("Invalid Email or password");
   }
 });
-
 
 //@description     get all Users 
 //@route           GET /api/user/
@@ -83,7 +132,6 @@ const getAllUsers = asyncHandler(async (req, res) => {
 
   res.status(200).json(users);
 });
-
 
 //@description     get user by id
 //@route           GEt /api/user/:id/deactivate
@@ -147,7 +195,6 @@ const deleteUser = asyncHandler(async (req, res) => {
   }
 });
 
-
 //@description     deactivateUser user
 //@route           POST /api/user/:id/deactivate
 //@access          Public
@@ -201,6 +248,7 @@ const reactivateUser = asyncHandler(async (req, res) => {
   });
   
 module.exports = {createUser, 
+  verifyAccount,
   authUser,
   deactivateUser,
   reactivateUser, 

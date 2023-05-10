@@ -33,13 +33,24 @@ const tourSchema = new mongoose.Schema(
         required: true,
         trim: true,
       },
-      image: {
+      imageCover: {
+        type: String,
+        required: true,
+        default: "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg",
+      },
+      images: {
         type: [String],
         required: true,
+        default: "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg",
+      },
+      maxGroupSize: {
+        type: Number,
+        required: [true, 'A tour must have a group size'],
       },
       price: {
         type: Number,
         required: true,
+        min: 0
       },
       location: {
         type: String,
@@ -53,12 +64,7 @@ const tourSchema = new mongoose.Schema(
         type: Date,
         required: true,
       },
-      availableSeats: {
-        type: Number,
-        required: true,
-        default: 0,
-        min: 0,
-      },
+     
       reviews: [reviewSchema],
     },
   { timestamps: true }
