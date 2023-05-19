@@ -17,7 +17,7 @@ const { isAdmin } = require("../middleware/adminMiddleware");
 const router = express.Router();
 
 // Get all tours
-router.route("/").get(protect, allTours);
+router.route("/").get(allTours);
 
 // Create a new tour
 router.route("/").post(protect, isAdmin, createTour);
