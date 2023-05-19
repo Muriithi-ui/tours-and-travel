@@ -4,6 +4,7 @@ const dotenv = require("dotenv");
 const userRoutes = require("./routes/userRoutes");
 const tourRoutes = require("./routes/tourRoutes");
 const bookingRoutes = require("./routes/bookingRoutes");
+const cors = require('cors');
 
 
 dotenv.config();
@@ -11,6 +12,9 @@ connectDB();
 const app = express();
 
 app.use(express.json());
+
+app.use(cors());
+
 
 app.get("/", (req,res) => {
     res.send("API Running!");
