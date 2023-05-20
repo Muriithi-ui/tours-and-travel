@@ -1,6 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import Axios from 'axios';
 
+function formatDate(dateString) {
+  const date = new Date(dateString);
+  const options = { day: 'numeric', month: 'short', year: 'numeric' };
+  const formatter = new Intl.DateTimeFormat('en-US', options);
+  const formattedDate = formatter.format(date);
+  return formattedDate;
+}
+
+
 const TourCard = () => {
   const [tours, setTours] = useState([]);
 
@@ -19,19 +28,19 @@ const TourCard = () => {
   }, []);
 
   return (
-    <div>
+    <div className="tour-card-container">
       {tours.map((tour, index) => (
         <div className="card tour-card" key={index}>
-          <img src={tour.imageCover} alt="Tour" className="tour-image" />
           <div className="tour-details">
-            <h3 className="name">Tour Name: {tour.name}</h3>
-            <p className="Description">Description {tour.description}</p>
-            <p className="startDate">start Date: {tour.startDate}</p>
-            <p className="endDate">endDate: {tour.endDate}</p>
-            <p className="availableSeats">availableSeats: {tour.availableSeats}</p>
-            <p className="price">price: {tour.price}</p>
+            <h3 className="tour-name">{tour.name}</h3>
+            <p className="dates">{formatDate(tour.startDate)} - {formatDate(tour.endDate)}</p>
+            <img src={tour.imageCover} alt="Tour" className="tour-image" />
+            {/**<p className="description">Description: {tour.description}</p>**/}
+            <p className="availableSeats">Available Seats: {tour.availableSeats}</p>
+            <p className="tour-price">Price: ${tour.price}</p>
             <button type="button" className="btn-explore">Explore</button>
           </div>
+
         </div>
       ))}
     </div>
