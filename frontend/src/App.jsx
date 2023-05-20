@@ -1,11 +1,8 @@
+import React from "react";
 import { BrowserRouter } from "react-router-dom";
-import { 
-  Hero,
-  Navbar,
-  TourCard,
-  TourLists,
-  Footer,
-} from './components';
+import { Navbar, Hero, Footer, TourCard } from './components';
+import Path from './routes';
+
 import './index.css';
 
 const App = () => {
@@ -16,12 +13,12 @@ const App = () => {
           <Navbar />
           <Hero />
         </div>
+        <Path />
         <TourCard />
-        <TourLists />
         <Footer />
       </div>
     </BrowserRouter>
   );
-}
+};
 
 export default App;
