@@ -1,18 +1,23 @@
-import Hero from './Hero';
-import Navbar from './Navbar';
-import TourCard from './TourCard';
-import Login from './Login';
-import Footer from './Footer';
-import Explore from './Explore'
-import Account from './Account'
-
+import Hero from './Home/Hero';
+import Navbar from './Home/Navbar';
+import Home from './main/Home'
+import TourCard from './tours/TourCard';
+import Login from './Login/Login';
+import SignupForm from './Login/SignUp/SignupForm';
+import Footer from './Home/Footer';
+import Dashboard from './dashboard/Dashboard';
+import Account from './dashboard/profile/Account'
+import NotFoundPage from './Not Found/NotFoundPage'
 
 export {
   Hero,
   Navbar,
-  TourCard,
+  Home,
   Login,
+  TourCard,
+  SignupForm,
   Footer,
-  Explore,
+  Dashboard,
   Account,
+  NotFoundPage,
 }

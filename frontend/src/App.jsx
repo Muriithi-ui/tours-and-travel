@@ -1,22 +1,18 @@
 import React from "react";
-import { BrowserRouter } from "react-router-dom";
-import { Navbar, Hero, Footer, TourCard } from './components';
-import Path from './routes';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Home, Login, Dashboard, SignupForm } from './components';
 
 import './index.css';
 
 const App = () => {
   return (
     <BrowserRouter>
-      <div>
-        <div>
-          <Navbar />
-          <Hero />
-        </div>
-        <Path />
-        <TourCard />
-        <Footer />
-      </div>
+    <Routes>
+    <Route path="/" element={<Home />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/dashboard" element={<Dashboard />} /> 
+      <Route path="/signup" element={<SignupForm />} /> 
+    </Routes>
     </BrowserRouter>
   );
 };
