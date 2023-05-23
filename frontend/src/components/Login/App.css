@@ -1,0 +1,127 @@
+
+
+.login-container {
+  background: linear-gradient(135deg, #850c62, #f80759);
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.login-app-wrapper {
+  background-color: #fff;
+  min-width: 350px;
+  min-height: 650px;
+  padding: 30px;
+  box-sizing: border-box;
+  border-radius: 5px;
+}
+
+.login-title {
+  color: #f80759;
+  text-align: center;
+  margin: 80px 0px 40px 0 px;
+}
+.login-name,
+.login-email,
+.login-password {
+  margin: 20px;
+  color: #969292;
+  font-size: 16px;
+}
+
+.login-password {
+  margin-bottom: 40px;
+}
+
+.login-input {
+  height: 32px;
+  font-size: 20px;
+  outline: none;
+  width: 100%;
+  border-top-style: none;
+  border-left-style: none;
+  border-right-style: none;
+  border-bottom-style: 2px solid black;
+  margin-bottom: 10px;
+}
+
+.login-error {
+  color: red;
+}
+
+.login-submit {
+  display: flex;
+  text-transform: uppercase;
+  font-size: 20px;
+  border-radius: 25px;
+  color: white;
+  padding: 10px 60px;
+  background: linear-gradient(to right, #ab1dcf,#f80759);
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px,
+    rgba(0, 0, 0, 0.22) 0px 15px 12px;
+  margin: auto;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  transition: all 0.1s;
+}
+
+button:active {
+  transform: translateY(2px);
+}
+
+.login-form-success {
+  display: flex;
+  justify-content: center;
+  margin-top: 250px;
+  min-width: 370px;
+  color: #f80759;
+}
+ 
+
+.divider:after,
+.divider:before {
+content: "";
+flex: 1;
+height: 1px;
+background: #eee;
+}
+.h-custom {
+height: calc(100% - 73px);
+}
+@media (max-width: 450px) {
+.h-custom {
+height: 100%;
+}
+}
+
+.btn-login {
+  font-weight: 500;
+  font-size: 14px;
+  letter-spacing: 1px;
+  display: inline-block;
+  padding: 12px 36px;
+  border-radius: 50px;
+  transition: 0.5s;
+  color: #fff;
+  background: var(--color-primary);
+  box-shadow: 0 8px 28px rgba(206, 18, 18, 0.2);
+}
+
+.hero .btn-book:hover {
+  background: rgba(206, 18, 18, 0.8);
+  box-shadow: 0 8px 28px rgba(206, 18, 18, 0.45);
+}
+
+.btn-icon {
+  font-weight: 500;
+  size: 14px;
+  color: #fff;
+  background: var(--color-primary);
+  box-shadow: 0 8px 28px rgba(206, 18, 18, 0.2);
+}
+
+.btn-icon:hover {
+  color: red; 
+}
