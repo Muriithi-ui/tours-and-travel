@@ -6,3 +6,24 @@
   object-fit: cover;
 }
 
+.notification {
+  font-size: 24px;
+  width: 20px;
+  height: 20px;
+  padding-left: 18%;
+  border-radius: 30%;
+  object-fit: cover;
+}
+
+.hello {
+  padding-left: 20%;
+  font-family: 'Ubuntu', sans-serif;
+  font-weight: bold;
+  font-size: 24px;
+
+}
+.name-text {
+  font-family: 'Ubuntu', sans-serif;
+  font-size: 24px;
+  color: #ce1312;
+}
