@@ -21,45 +21,41 @@ const useForm = () => {
     });
   };
 
-  const handleFormSubmit = (event) => {
+  const handleFormSubmit = async (event) => {
     event.preventDefault();
     setErrors(validation(values));
-    setDataIsCorrect(true);
+
+    try {
+      const config = {
+        headers: {
+          "Content-type": "application/json",
+        },
+      };
+
+      const response = await axios.post(
+        "http://localhost:5000/api/user/login",
+        values,
+        config
+      );
+
+      const data = response.data;
+      console.log("Login data:", data);
+
+      // Check if the login was successful (modify this condition based on your response structure)
+      if (data.token) {
+        setDataIsCorrect(true);
+      }
+    } catch (error) {
+      console.log("Error fetching data:", error);
+    }
   };
 
   useEffect(() => {
-    const postData = async () => {
-      try {
-        const config = {
-          headers: {
-            "Content-type": "application/json",
-          },
-        };
-
-        const response = await axios.post(
-          "http://localhost:5000/api/user/login",
-          values,
-          config
-        );
-
-        const data = response.data;
-        console.log("Login data:", data);
-      } catch (error) {
-        console.log("Error fetching data:", error);
-      }
-    };
-
     if (dataIsCorrect) {
-      postData();
-    }
-  }, [dataIsCorrect, values]);
-
-  useEffect(() => {
-    if (Object.keys(errors).length === 0 && dataIsCorrect) {
       navigate("/dashboard");
       console.log("Switching now");
     }
-  }, [errors, dataIsCorrect, navigate]);
+  }, [dataIsCorrect, navigate]);
 
   return { handleChange, handleFormSubmit, errors, values };
 };

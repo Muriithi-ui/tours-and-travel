@@ -1,9 +1,10 @@
 import React from 'react';
-import useForm from '../useForm';
+import SignUpFormHandler from './SignUpFormHandler';
+
 import '../App.css';
 
 const SignupForm = ({ submitForm }) => {
-  const { handleChange, handleFormSubmit, values, errors } = useForm(submitForm);
+  const { handleChange, handleSignUpSubmit, values, errors } = SignUpFormHandler(submitForm);
 
   return (
     <div className="login-container">
@@ -11,17 +12,17 @@ const SignupForm = ({ submitForm }) => {
         <div>
           <h2 className="login-title">Create Account</h2>
         </div>
-        <form className="form-wrapper">
+        <form className="form-wrapper" onSubmit={handleSignUpSubmit}>
           <div className="login-name">
             <label className="label">Full Name</label>
             <input
               className="login-input"
               type="text"
-              name="fullname"
-              value={values.fullname}
+              name="name"
+              value={values.name}
               onChange={handleChange}
             />
-            {errors.fullname && <p className='error'>{errors.fullname}</p>}
+            {errors.name && <p className="error">{errors.name}</p>}
           </div>
           <div className="login-email">
             <label className="label">Email</label>
@@ -32,7 +33,7 @@ const SignupForm = ({ submitForm }) => {
               value={values.email}
               onChange={handleChange}
             />
-            {errors.email && <p className='error'>{errors.email}</p>}
+            {errors.email && <p className="error">{errors.email}</p>}
           </div>
           <div className="login-password">
             <label className="label">Password</label>
@@ -43,10 +44,11 @@ const SignupForm = ({ submitForm }) => {
               value={values.password}
               onChange={handleChange}
             />
-            {errors.password && <p className='error'>{errors.password}</p>}
+            {errors.password && <p className="error">{errors.password}</p>}
           </div>
           <div>
-            <button className='login-submit' onClick={handleFormSubmit}>Submit</button>
+            <button 
+              className="login-submit" type="submit">Submit</button>
           </div>
         </form>
       </div>
