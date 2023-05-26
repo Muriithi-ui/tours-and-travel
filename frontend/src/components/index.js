@@ -1,5 +1,6 @@
 import Hero from './Home/Hero';
 import Navbar from './Home/Navbar';
+import NavbarDashboard from './dashboard/NavbarDashboard'
 import Home from './main/Home'
 import TourCard from './tours/TourCard';
 import Login from './Login/Login';
@@ -13,6 +14,7 @@ import NotFoundPage from './Not Found/NotFoundPage'
 export {
   Hero,
   Navbar,
+  NavbarDashboard,
   Home,
   Login,
   TourCard,

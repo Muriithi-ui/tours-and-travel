@@ -1,9 +1,20 @@
-import React from 'react'
+import React from 'react';
+
+import { NavbarDashboard, Hero, Footer, TourCard } from '../../components';
+ 
+console.log("we are getting home");
 
 const Dashboard = () => {
+
   return (
-    <div>Dashboard</div>
+    <div>
+      < NavbarDashboard />
+      < Hero />
+      < TourCard />
+      < Footer />
+    </div>
+    
   )
 }
 
-export default Dashboard
+export default Dashboard;
