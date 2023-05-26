@@ -42,7 +42,9 @@ const useForm = () => {
       console.log("Login data:", data);
 
       // Check if the login was successful (modify this condition based on your response structure)
-      if (data.token) {
+      if (data.token && data._id) {
+        localStorage.setItem("token", data.token);
+        localStorage.setItem("userId", data._id);
         setDataIsCorrect(true);
       }
     } catch (error) {

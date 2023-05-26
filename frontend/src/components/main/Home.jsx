@@ -1,7 +1,5 @@
 import React from 'react'
-import { BrowserRouter } from 'react-router-dom'
 import { Navbar, Hero, Footer, TourCard } from '..';
-
 
 const Home = () => {
   return (

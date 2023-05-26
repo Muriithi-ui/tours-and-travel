@@ -863,7 +863,7 @@ section {
 }
 
 .tour-card {
-  display: flex;
+  display: grid;
   margin-top: 5px;
   flex-direction: column;
   padding: 5px;
